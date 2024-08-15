@@ -38,6 +38,7 @@ x
     </style>
 </head>
 <body>
+    <button onclick="leerEnVozAlta()">Presionar para Leer en Voz Alta</button>
     <div class="content">
         <h2>EUSEBIO DE CESAREA <br>HISTORIA DE LA IGLESIA</h2>
         <h3>LIBRO 2<br></h3>
@@ -1535,6 +1536,33 @@ una revuelta de las legiones y de la Guardia Pretoriana. Fue el
 
 
     </div>
+ <script>
+     function leerEnVozAlta() {
+    // Obtener el texto del elemento con la clase "contenido-texto"
+    var texto = document.querySelector('.contenido-texto').innerText;
+
+    // Dividir el texto en segmentos mÃ¡s pequeÃ±os
+    var partes = dividirTextoEnPartes(texto, 500); // Por ejemplo, 200 caracteres por parte
+
+    // Leer cada parte secuencialmente
+    partes.forEach((parte) => {
+        var mensaje = new SpeechSynthesisUtterance(parte);
+        mensaje.lang = 'es-ES';
+        mensaje.pitch = .9;
+        mensaje.rate = 1;
+        window.speechSynthesis.speak(mensaje);
+    });
+}
+
+function dividirTextoEnPartes(texto, tamano) {
+    var partes = [];
+    for (var i = 0; i < texto.length; i += tamano) {
+        partes.push(texto.slice(i, i + tamano));
+    }
+    return partes;
+}
+
+    </script>   
 </body>
 </html>
 
